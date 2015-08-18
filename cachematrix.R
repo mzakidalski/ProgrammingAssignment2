@@ -1,6 +1,7 @@
 
 callMethod <- function (object, methodName, ...) {
-  attr(object, methodName, ...)
+  method <- attr(object, methodName)
+  method(...)
 }
 
 addMethod  <- function(object, methodName, methodBody) {
@@ -40,7 +41,7 @@ makeCacheMatrix <- function(x = matrix()) {
 ## Write a short comment describing this function
 
 cacheSolve <- function(x, ...) {
-  inverse <- attr(x,"getInverse") ()
+  inverse <- callMethod(x,"getInverse")
   
   if (!is.null(inverse)) {
     
@@ -53,9 +54,9 @@ cacheSolve <- function(x, ...) {
     
   }
   
-  data <- attr(x, "get")() 
+  data <- callMethod(x, "get")
   inverse <- solve(data, ...)
-  attr(x, "setInverse")(inverse) 
+  callMethod(x, "setInverse",inverse) 
   inverse
 }
 
