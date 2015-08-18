@@ -5,6 +5,7 @@ callMethod <- function (object, methodName, ...) {
 
 addMethod  <- function(object, methodName, methodBody) {
   attr(object, methodName) <- methodBody
+  object
 }
 
 ## Put comments here that give an overall description of what your
@@ -27,10 +28,10 @@ makeCacheMatrix <- function(x = matrix()) {
   }
   
     
-  attr(x, "set") <- set
-  attr(x, "get") <- get
-  attr(x, "setInverse") <- setInverse
-  attr(x,"getInverse") <- getInverse
+  x = addMethod(x, "set", set)
+  x = addMethod(x, "get", get) 
+  x = addMethod(x, "setInverse", setInverse)
+  x = addMethod(x,"getInverse", getInverse)
   
   x
 }
